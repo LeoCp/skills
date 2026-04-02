@@ -55,9 +55,11 @@ If it has hardcoded version values, use regex to replace them.
 If it reads from `package.json`, skip it and note that in the output.
 
 ### project.pbxproj
-Use regex to replace ALL occurrences of:
-- `MARKETING_VERSION = <old>;` → `MARKETING_VERSION = <new>;`
-- `CURRENT_PROJECT_VERSION = <old>;` → `CURRENT_PROJECT_VERSION = <new_build>;`
+Replace ALL occurrences regardless of current value:
+- `MARKETING_VERSION = <any>;` → `MARKETING_VERSION = <new>;`
+- `CURRENT_PROJECT_VERSION = <any>;` → `CURRENT_PROJECT_VERSION = <new_build>;`
+
+> **IMPORTANT:** Do NOT match by old version. Tools like `pod install` or Xcode can reset these to default values. Always grep for all occurrences and replace whatever value is there.
 
 ### Info.plist
 If values are Xcode variables like `$(MARKETING_VERSION)` — skip (resolved at build time).
